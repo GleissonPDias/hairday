@@ -17,6 +17,8 @@
 - [x] Context7 foi consultado e a consulta pode ser demonstrada (abaixo).
 - [x] Validação no navegador executada e resultados registrados (abaixo). **Playwright MCP** não disponível no ambiente (detalhes em limitações).
 - [x] README e evidências preparados. **Capturas de tela:** ver observação em limitações.
+- [x] **Desafio opcional:** agendamentos persistidos em `localStorage`.
+- [x] **Desafio opcional:** impedido cadastro de dois clientes no mesmo horário e data.
 
 ## Evidência — Context7 (consultas realizadas)
 
@@ -35,6 +37,8 @@ Consultas feitas via ferramentas MCP `context7` (resolve + query) antes de aplic
 - Aplicação abre sem erros no console.
 - Tentativa de cadastro com campos vazios exibe orientação geral e mensagens por campo (nome, data, horário).
 - Cadastro válido (nome, data, horário) reflete **imediatamente** na agenda do dia selecionado; nome e horário são limpos e a data do formulário é mantida.
+- **Conflito de horário:** tentativa de cadastrar outro cliente na mesma data e horário é bloqueada com mensagem de erro, sem criar registro duplicado.
+- **Persistência:** agendamentos são salvos em `localStorage` (`hairday:appointments`) e permanecem após recarregar a página.
 - Agenda filtrada pela data selecionada; troca de data atualiza a exibição.
 - Classificação correta nos períodos **Manhã (09h-12h)**, **Tarde (13h-18h)** e **Noite (19h-21h)**.
 - Ordenação crescente dos horários dentro do período.
@@ -46,5 +50,5 @@ Consultas feitas via ferramentas MCP `context7` (resolve + query) antes de aplic
 - **Figma MCP:** indisponível; o protótipo foi aberto no navegador, porém a inspeção automática de detalhes visuais não foi possível. A UI foi refinada com base na imagem do Figma fornecida na conversa (sem inventar detalhes não confirmados).
 - **Playwright MCP:** indisponível no ambiente; a validação foi feita com browser in-app. Se necessário, os cenários acima podem ser reproduzidos/automatizados com Playwright localmente.
 - **Capturas desktop/mobile:** recomenda-se gerar no navegador (DevTools/device toolbar) para anexar ao repositório/entrega final conforme solicitado pelo `AGENTS.md`.
-- **Repositório/board:** Git não estava configurado inicialmente; commits organizados por etapas foram preparados neste projeto. Não há acesso a board externo.
+- **Repositório/board:** commits organizados por etapas no repositório local. Não há acesso a board externo.
 - **Node:** aviso do Vite sobre versão do Node em alguns ambientes, sem impacto observado no build/execução.

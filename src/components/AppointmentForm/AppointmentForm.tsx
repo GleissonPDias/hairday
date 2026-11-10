@@ -3,13 +3,14 @@ import type { Appointment } from "../../types/appointment";
 import { PERIODS } from "../../utils/appointment";
 
 type AppointmentFormProps = {
-  onAdd: (data: Omit<Appointment, "id">) => void;
+  onAdd: (data: Omit<Appointment, "id">) => boolean;
 };
 
 type FormErrors = {
   clientName?: string;
   date?: string;
   time?: string;
+  form?: string;
 };
 
 const TIME_SLOTS_BY_PERIOD: Record<string, string[]> = {
@@ -50,11 +51,19 @@ export function AppointmentForm({ onAdd }: AppointmentFormProps) {
       return;
     }
 
-    onAdd({
+    const added = onAdd({
       clientName: clientName.trim(),
       date,
       time,
     });
+
+    if (!added) {
+      setErrors({
+        time: "Já existe um agendamento para esta data e horário.",
+      });
+      setTouched(true);
+      return;
+    }
 
     // Limpa nome e horário; mantém a data.
     setClientName("");
@@ -62,6 +71,26 @@ export function AppointmentForm({ onAdd }: AppointmentFormProps) {
     setErrors({});
     setTouched(false);
   }
+
+  function handleDateChange(value: string) {
+    setDate(value);
+    if (errors.time === "Já existe um agendamento para esta data e horário.") {
+      setErrors((prev) => ({ ...prev, time: undefined }));
+    }
+  }
+
+  function handleTimeSelect(value: string) {
+    setTime(value);
+    if (errors.time === "Já existe um agendamento para esta data e horário.") {
+      setErrors((prev) => ({ ...prev, time: undefined }));
+    }
+  }
+
+  const hasEmptyFieldError =
+    touched &&
+    (!!errors.clientName ||
+      errors.date === "Selecione uma data." ||
+      errors.time === "Selecione um horário.");
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
@@ -75,7 +104,7 @@ export function AppointmentForm({ onAdd }: AppointmentFormProps) {
         </p>
       </div>
 
-      {touched && Object.keys(errors).length > 0 && (
+      {hasEmptyFieldError && (
         <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-400">
           Preencha todos os campos obrigatórios para agendar.
         </p>
@@ -112,7 +141,7 @@ export function AppointmentForm({ onAdd }: AppointmentFormProps) {
             id="appointment-date"
             type="date"
             value={date}
-            onChange={(event) => setDate(event.target.value)}
+            onChange={(event) => handleDateChange(event.target.value)}
             className="w-full rounded-lg border border-[#3a393e] bg-[#1c1b1f] py-2.5 pl-10 pr-3 text-sm text-zinc-200 placeholder-zinc-500 focus:border-[#b8952e] focus:outline-none focus:ring-1 focus:ring-[#b8952e]"
           />
         </div>
@@ -134,7 +163,7 @@ export function AppointmentForm({ onAdd }: AppointmentFormProps) {
                   <button
                     key={slot}
                     type="button"
-                    onClick={() => setTime(slot)}
+                    onClick={() => handleTimeSelect(slot)}
                     className={`rounded-md border px-3 py-1.5 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-[#b8952e] focus:ring-offset-1 focus:ring-offset-[#232225] ${
                       selected
                         ? "border-[#b8952e] bg-[#b8952e]/15 text-[#d4b24c]"

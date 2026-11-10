@@ -2,16 +2,31 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
 import type { Appointment } from "../types/appointment";
 import { generateId } from "../utils/appointment";
 
+const STORAGE_KEY = "hairday:appointments";
+
+// Carrega agendamentos salvos no localStorage (com fallback seguro).
+function loadAppointments(): Appointment[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? (parsed as Appointment[]) : [];
+  } catch {
+    return [];
+  }
+}
+
 // Tipo do valor exposto pelo Context.
 export type AppointmentsContextValue = {
   appointments: Appointment[];
-  addAppointment: (data: Omit<Appointment, "id">) => void;
+  addAppointment: (data: Omit<Appointment, "id">) => boolean;
   removeAppointment: (id: string) => void;
 };
 
@@ -22,16 +37,33 @@ const AppointmentsContext = createContext<AppointmentsContextValue | undefined>(
 
 // Provider que centraliza o estado dos agendamentos.
 export function AppointmentsProvider({ children }: { children: ReactNode }) {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>(loadAppointments);
 
-  // Cadastro imutável: cria novo array com o novo item.
-  const addAppointment = useCallback((data: Omit<Appointment, "id">) => {
-    const newAppointment: Appointment = {
-      id: generateId(),
-      ...data,
-    };
-    setAppointments((previous) => [...previous, newAppointment]);
-  }, []);
+  // Persiste os agendamentos no localStorage sempre que a lista mudar.
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appointments));
+  }, [appointments]);
+
+  // Cadastro imutável: impede dois clientes no mesmo horário e data.
+  // Retorna true se cadastrou, ou false se já existir conflito.
+  const addAppointment = useCallback(
+    (data: Omit<Appointment, "id">): boolean => {
+      const conflict = appointments.some(
+        (appointment) =>
+          appointment.date === data.date && appointment.time === data.time
+      );
+      if (conflict) {
+        return false;
+      }
+      const newAppointment: Appointment = {
+        id: generateId(),
+        ...data,
+      };
+      setAppointments((previous) => [...previous, newAppointment]);
+      return true;
+    },
+    [appointments]
+  );
 
   // Exclusão imutável: remove apenas o registro com o ID informado.
   const removeAppointment = useCallback((id: string) => {
@@ -64,4 +96,3 @@ export function useAppointments(): AppointmentsContextValue {
   }
   return context;
 }
-
