@@ -16,7 +16,8 @@
 - [x] A aparência foi comparada com o Figma (refino com base na imagem de referência fornecida).
 - [x] Context7 foi consultado e a consulta pode ser demonstrada (abaixo).
 - [x] Validação no navegador executada e resultados registrados (abaixo). **Playwright MCP** não disponível no ambiente (detalhes em limitações).
-- [x] README e evidências preparados. **Capturas de tela:** ver observação em limitações.
+- [x] README e evidências preparados.
+- [x] Capturas de tela da aplicação nas versões desktop e mobile incluídas em `docs/`.
 - [x] **Desafio opcional:** agendamentos persistidos em `localStorage`.
 - [x] **Desafio opcional:** impedido cadastro de dois clientes no mesmo horário e data.
 
@@ -46,9 +47,13 @@ Consultas feitas via ferramentas MCP `context7` (resolve + query) antes de aplic
 - Exclusão via lixeira remove somente o agendamento escolhido.
 - Interface responsiva (sidebar + agenda em desktop; composição em coluna em telas menores).
 
+## Capturas de tela
+- Desktop: `docs/screenshot-desktop.jpg`
+- Mobile: `docs/screenshot-mobile.jpg`
+
 ## Limitações e observações
 - **Figma MCP:** indisponível; o protótipo foi aberto no navegador, porém a inspeção automática de detalhes visuais não foi possível. A UI foi refinada com base na imagem do Figma fornecida na conversa (sem inventar detalhes não confirmados).
-- **Playwright MCP:** indisponível no ambiente; a validação foi feita com browser in-app. Se necessário, os cenários acima podem ser reproduzidos/automatizados com Playwright localmente.
-- **Capturas desktop/mobile:** recomenda-se gerar no navegador (DevTools/device toolbar) para anexar ao repositório/entrega final conforme solicitado pelo `AGENTS.md`.
-- **Repositório/board:** commits organizados por etapas no repositório local. Não há acesso a board externo.
+- **Playwright MCP:** indisponível no ambiente, portanto **não há evidência de execução via Playwright MCP**. A validação funcional foi realizada com ferramentas de **browser in-app** e os cenários/resultados estão registrados acima; os mesmos cenários podem ser automatizados com Playwright localmente se necessário.
+- **Repositório GitHub:** remoto configurado (`origin` → `https://github.com/GleissonPDias/hairday.git`). O código-fonte está versionado localmente; para refletir o estado mais recente no GitHub é necessário executar `git push`.
+- **Board:** não há acesso a board externo.
 - **Node:** aviso do Vite sobre versão do Node em alguns ambientes, sem impacto observado no build/execução.

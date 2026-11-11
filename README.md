@@ -73,8 +73,12 @@ src/
 - **`filter()`**: filtrar por data e remover um agendamento pelo `id`.
 - **`reduce()`**: agrupar agendamentos por período e ordenar cronologicamente.
 
+## Capturas de tela
+- **Desktop:** [`docs/screenshot-desktop.jpg`](./docs/screenshot-desktop.jpg)
+- **Mobile:** [`docs/screenshot-mobile.jpg`](./docs/screenshot-mobile.jpg)
+
 ## Evidências e checklist
-Consulte [`EVIDENCIAS.md`](./EVIDENCIAS.md) para o checklist de conclusão, evidências de consulta ao **Context7**, resultados de validação no navegador e notas sobre capturas/limitações. O arquivo [`AGENTS.md`](./AGENTS.md) contém as regras do desafio.
+Consulte [`EVIDENCIAS.md`](./EVIDENCIAS.md) para o checklist de conclusão, evidências de consulta ao **Context7**, resultados de validação no navegador e notas/limitações (incluindo **Playwright MCP**). O arquivo [`AGENTS.md`](./AGENTS.md) contém as regras do desafio.
 
 ## Referência
 - [Protótipo HairDay — Figma](https://www.figma.com/design/AexPewRL0Yt7kdRbgpkKG2/Plataforma-de-agendamento--Community---Copy---c%C3%B3pia---Copy-?node-id=3-376&p=f&t=frHsFiKAETrMzX8M-0)
