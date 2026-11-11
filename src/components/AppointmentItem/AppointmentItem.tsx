@@ -10,16 +10,18 @@ export function AppointmentItem({ appointment, onDelete }: AppointmentItemProps)
   return (
     <li className="flex items-center justify-between gap-3 px-4 py-3">
       <div className="flex items-center gap-4">
-        <span className="text-sm font-semibold text-zinc-200">
+        <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">
           {appointment.time}
         </span>
-        <span className="text-sm text-zinc-400">{appointment.clientName}</span>
+        <span className="text-sm text-zinc-600 dark:text-zinc-400">
+          {appointment.clientName}
+        </span>
       </div>
       <button
         type="button"
         aria-label={`Excluir agendamento de ${appointment.clientName}`}
         onClick={() => onDelete(appointment.id)}
-        className="rounded-md p-1.5 text-[#b8952e]/70 transition hover:bg-[#b8952e]/10 hover:text-[#b8952e] focus:outline-none focus:ring-2 focus:ring-[#b8952e]"
+        className="rounded-md p-1.5 text-[#b8952e]/80 transition hover:bg-[#b8952e]/10 hover:text-[#b8952e] focus:outline-none focus:ring-2 focus:ring-[#b8952e]"
       >
         {/* Ícone de lixeira */}
         <svg

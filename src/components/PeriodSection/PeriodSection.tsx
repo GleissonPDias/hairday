@@ -44,9 +44,9 @@ export function PeriodSection({
   onDelete,
 }: PeriodSectionProps) {
   return (
-    <section className="overflow-hidden rounded-xl border border-[#2f2e33] bg-[#232225]">
-      <header className="flex items-center justify-between border-b border-[#2f2e33] px-4 py-3">
-        <div className="flex items-center gap-2 text-sm font-medium text-zinc-300">
+    <section className="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-[#2f2e33] dark:bg-[#232225]">
+      <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-[#2f2e33]">
+        <div className="flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
           <PeriodIcon periodKey={period.key} />
           <span>{period.label}</span>
         </div>
@@ -58,7 +58,7 @@ export function PeriodSection({
           {EMPTY_PERIOD_MESSAGE}
         </p>
       ) : (
-        <ul className="divide-y divide-[#2f2e33]">
+        <ul className="divide-y divide-zinc-200 dark:divide-[#2f2e33]">
           {appointments.map((appointment) => (
             <AppointmentItem
               key={appointment.id}

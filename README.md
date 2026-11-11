@@ -8,6 +8,7 @@ Permitir **cadastrar, visualizar e excluir agendamentos** (nome do cliente, data
 ## Funcionalidades
 - Cadastro de agendamento com **nome, data e horário**.
 - Atualização imediata da agenda (sem recarregar a página).
+- **Tema claro e escuro** com alternância e persistência da preferência no navegador.
 - **Persistência em `localStorage`**: os agendamentos são salvos no navegador e mantidos ao recarregar.
 - **Bloqueio de conflito**: não permite cadastrar dois clientes no mesmo **horário e data**.
 - Filtro da agenda pela **data selecionada**.
